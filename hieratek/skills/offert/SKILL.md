@@ -30,6 +30,39 @@ av Hierateks verktyg; räkna aldrig fram priset själv.
      föreslå hela listan med `price_list_propose`. Ge ägaren länken; den nya
      listan gäller först när ägaren godkänt den på sidan.
    - Hitta aldrig på värden och använd aldrig en annan firmas priser.
+   - Ge varje behandling ett display_name med ägarens egna ord, så som
+     kunden ska läsa det i offerten, till exempel "Väggmålning, två
+     strykningar". Saknas namnet står behandlingens nyckel i offerten.
+
+## Offertprofil
+
+Offertprofilen är företagets egna uppgifter i varje offert. Läs den med
+`quote_profile_get` före första offerten.
+
+- Saknas profil: fråga ägaren samlat om företagsnamn, organisationsnummer,
+  adress, telefon, e-post, om företaget är godkänt för F-skatt,
+  betalningsvillkor, hur många dagar offerten gäller, kontaktperson och
+  ägarens egen text om villkor och förbehåll. Föreslå profilen med
+  `quote_profile_propose` och ge ägaren länken. Den gäller först när ägaren
+  har godkänt den på sidan.
+- Skriv aldrig villkor, betalningsvillkor eller förbehåll åt ägaren, och
+  föreslå inga formuleringar. Vill ägaren inte ha någon text: lämna fältet
+  tomt, så visas inget i offerten.
+- En ändring går samma väg: läs profilen, ändra bara det ägaren sagt och
+  föreslå hela profilen igen.
+
+### Egen offertmall
+
+Ägaren kan ladda upp sin egen offertmall (Word, PDF eller bild) i chatten.
+
+1. Spara filen i företagets egen Drive med användarens egen Drive-koppling.
+2. Räkna filens SHA-256 med ditt kodverktyg.
+3. Föreslå profilen med `quote_profile_propose` med mallen i template:
+   filens id, SHA-256, format (docx, pdf, png eller jpeg) och filnamn. Ägaren
+   godkänner mallen som en del av profilen.
+
+Saknas Drive-kopplingen eller kodverktyget: säg det, och be ägaren spara
+filen själv och ge dig filens id. Hieratek läser aldrig mallen.
 
 ## Kalkyl och utkast
 
@@ -38,8 +71,13 @@ av Hierateks verktyg; räkna aldrig fram priset själv.
 5. Anropa `calculation_prepare` med ärendets referens, aktuella revision och
    regelversionen som verktygen lämnat. Gissa aldrig referenser eller
    versioner.
-6. Anropa `quote_prepare` med kalkylens referens. Utkastet sparas då på
-   servern.
+6. Anropa `quote_prepare` med kalkylens referens. Ange i presentation det
+   ägaren har sagt om jobbet: en kort beskrivning, jobbets adress och ett
+   läsbart namn per objekt, till exempel "Kök, väggar". Skriv med ägarens
+   ord och lägg inte till något. Utkastet sparas då på servern med
+   företagets godkända offertprofil, beställaren ur kundregistret, datum,
+   offertnummer och sista giltighetsdag. Koppla jobbet till kunden med
+   `case_customer_link` först, annars saknas beställaren.
 
 ## Visa resultatet
 
@@ -51,11 +89,27 @@ Börja alltid med läget, med de här orden:
 
 ## PDF
 
-Hämta utkastet med `document_get` och gör en PDF av exakt den texten, om
-din miljö kan skapa filer. Rubriken är "Offertutkast", med företagets namn,
-jobbet och versionen. Lägg inte till rader, belopp eller villkor som inte
-står i utkastet. Saknar miljön filstöd: visa texten och säg att PDF kan
-skapas i Claude på webben eller i appen.
+Hämta utkastet med `document_get`. Texten är offerten som kunden ska få:
+företagets uppgifter, beställaren, arbetet, raderna, beloppen och ägarens
+villkor. Gör en PDF av exakt den texten, om din miljö kan skapa filer.
+
+- **Med egen mall** (template i svaret från `document_get`, alltså mallen
+  som var godkänd när utkastet sparades, inte profilens nuvarande): hämta filen ur
+  företagets Drive med användarens egen Drive-koppling och räkna dess
+  SHA-256. Stämmer den inte med utkastets mall: stanna och säg att filen
+  har ändrats sedan offerten sparades. Annars fyll mallen med exakt
+  utkastets innehåll, på mallens platser för samma uppgifter. Behåll
+  mallens logotyp, färger och typsnitt, men ta bort exempeltext,
+  exempelrader och exempelbelopp som mallen själv har. Lägg aldrig till,
+  ta bort eller ändra rader, belopp eller villkor.
+- **Utan mall:** gör en ren standardlayout: rubriken "Offert", företagets
+  uppgifter överst, beställaren, arbetet, tabellen, priset och sist
+  villkoren.
+
+Utkastets PDF är för ägarens granskning. Ge filen ett namn med
+"Offertutkast" och offertnumret, så att den inte förväxlas med den
+utfärdade. Saknar miljön filstöd: visa texten och säg att PDF kan skapas i
+Claude på webben eller i appen.
 
 ## Slutlig offert
 
@@ -68,8 +122,9 @@ När ägaren är nöjd med utkastet blir det den slutliga offerten i två steg:
    beslutets referens. Hieratek sparar då exakt den godkända versionen som
    slutlig offert. Säg: **Offerten är utfärdad. Ingenting har skickats.**
 
-Gör en PDF av den utfärdade texten med rubriken "Offert" i stället för
-"Offertutkast". Ägaren skickar den själv till sin kund.
+Gör en PDF av den utfärdade texten på samma sätt som ovan, i ägarens mall
+eller i standardlayouten, och ge filen ett namn med "Offert" och
+offertnumret. Ägaren skickar den själv till sin kund.
 
 ## Spara kopian i företagets Drive
 

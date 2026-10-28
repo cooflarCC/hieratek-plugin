@@ -5,7 +5,12 @@ Claude till företagets sparade uppgifter hos Hieratek och ger fjorton
 arbetssätt:
 
 - **oversikt**: vad som väntar på ägaren, vad som förfaller och hur jobben står;
-- **offert**: från jobb och kalkyl till godkänd slutlig offert, PDF i företagets Drive och kundens svar;
+- **offert**: från jobb och kalkyl till godkänd slutlig offert, PDF i företagets Drive och kundens svar.
+  Offerten visar företagets offertprofil, beställaren, datum, offertnummer,
+  sista giltighetsdag och ägarens egna villkor, på svenska. Ägaren godkänner
+  profilen på en egen sida och kan ladda upp sin egen offertmall (Word, PDF
+  eller bild), som Claude fyller med exakt offertens innehåll. Utan mall blir
+  det en ren standardlayout;
 - **andra-offert**: en ändring sparas som ny version bredvid den gamla;
 - **fortsatt**: återuppta i en ny chatt utifrån det som är sparat;
 - **planering**: veckoplanering med SMHI:s prognos bedömd mot företagets vädergränser, och ägarens beslut;

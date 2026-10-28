@@ -19,8 +19,9 @@ description: Lägg upp, rätta, hitta eller radera företagets kunder och se en 
 ## Radera en kund
 
 Bara på företagets egen begäran. Säg först vad som händer: kundens namn och
-kontaktuppgifter tas bort för gott, jobben finns kvar utan namn, och det kan
-inte ångras. Fråga uttryckligen: "Ska jag radera kundens uppgifter?" Först
+kontaktuppgifter tas bort ur kundregistret för gott, jobben finns kvar utan
+namn, och det kan inte ångras. Offerter som redan är skrivna är frysta
+dokument och behåller beställarens namn och adress så som de stod. Fråga uttryckligen: "Ska jag radera kundens uppgifter?" Först
 efter ett tydligt ja: `customer_erase`.
 
 Inget av detta kontaktar kunden: ingenting har skickats.

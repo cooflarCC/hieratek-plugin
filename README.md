@@ -1,6 +1,6 @@
 # Hieratek för Claude
 
-Version 0.7.0
+Version 0.8.0
 
 Hieratek är verktyg och arbetsinstruktioner för företagets egen Claude:
 offert, prislista, planering, tillägg, kunder, bevakning och
