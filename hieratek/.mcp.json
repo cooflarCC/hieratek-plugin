@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "hieratek": {
+      "type": "http",
+      "url": "https://hieratek-kund-395919058685.europe-west3.run.app/mcp"
+    }
+  }
+}

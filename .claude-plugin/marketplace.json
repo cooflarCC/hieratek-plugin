@@ -1,0 +1,14 @@
+{
+  "name": "hieratek",
+  "description": "Hierateks verktyg för småföretagets egen AI-tjänst.",
+  "owner": {
+    "name": "Hieratek AB"
+  },
+  "plugins": [
+    {
+      "name": "hieratek",
+      "source": "./hieratek",
+      "description": "Offert, ändring och återupptagning mot företagets sparade uppgifter hos Hieratek."
+    }
+  ]
+}

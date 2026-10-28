@@ -1,0 +1,10 @@
+{
+  "name": "hieratek",
+  "displayName": "Hieratek",
+  "version": "0.7.0",
+  "description": "Verktyg och arbetsinstruktioner för kundens egen Claude: offert, ändring, PDF och återupptagning mot företagets sparade uppgifter hos Hieratek.",
+  "author": {
+    "name": "Hieratek AB"
+  },
+  "license": "LicenseRef-Hieratek-Proprietary"
+}
